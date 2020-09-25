@@ -1,0 +1,76 @@
+设置主机名
+	设置临时的
+			hostname 名称
+	
+	修改/etc/sysconfig/network文件（针对当前版本6.x）
+			/etc/hostname	（7.x）
+	
+	修改hosts文件（域名本地转化，本地DNS）
+		/etc/hosts
+		
+chkconfig
+	作用：开机启动项
+
+	chkconfig --list
+	chkconfig --del 服务名
+	chkconfig --add 服务名
+	chkconfig --level 连续的级别数字 服务名 off/on
+	
+ntp
+	作用：同步服务器时间
+	ntpdate：一次性同步	，ntpdate 域名/ip
+	ntpd服务：service ntpd start/stop/restart
+				chkconfig --level 35 ntpd on
+
+防火墙
+	centos6.x：iptables
+	centos7.x：firewalld
+	
+	service iptables start/stop/restart/status
+	iptables -L -n
+	iptables -I/A INPUT/OUTPUT -p tcp/udp --dport 端口号 -j 允许/拒绝/丢弃
+
+RPM
+	作用：软件管理
+	常用用法：
+		查询：rpm -qa|grep 过滤关键词
+		卸载：rpm -e 软件名称 --nodeps
+		安装：rpm -ivh 软件包的完整路径
+		更新：rpm -uvh 软件包的完整路径
+	
+	挂载：
+		挂载、解挂
+		类似于windows的分配盘符，但是windows盘符是系统自动分的，但是Linux不会
+		windows							Linux
+		插入外接设备					插入外接设备
+		托盘区会显示安装驱动			会在/dev/xxx
+		会在“计算机”中显示并带有盘符	手动挂载
+		用户可以访问					才能进行访问
+		
+		lsblk：查看块状设备
+		
+		mount 原始路径 挂载位置（盘符路径）
+		umount 挂载位置			（类似于windows下弹出U盘）
+
+计划任务
+	作用：指定的时间点去执行操作
+	crontab
+		crontab -l
+		crontab -e
+		crontab -u
+		crontab -r
+	
+	分 时 日 月 周 命令
+	
+	取值：
+		分：0-59
+		时：0-23
+		日：1-31
+		月：1-12
+		周：0-6
+	
+	四个特殊符号：
+		*：表示每个取值范围
+		-：表示连续区间的取值
+		/：表示“每”，例如类似10km/h，*/n
+		,：表示多个不连续的取值，多个值之间通过其分割
